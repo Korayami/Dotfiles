@@ -1,0 +1,13 @@
+[Unit]
+Description=noVNC WebSockets Proxy
+After=wayvnc.service
+Requires=wayvnc.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/novnc --vnc 127.0.0.1:5900 --listen 0.0.0.0:6080
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=graphical-session.target

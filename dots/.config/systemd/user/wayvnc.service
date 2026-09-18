@@ -1,0 +1,15 @@
+[Unit]
+Description=WayVNC Server
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/wayvnc 127.0.0.1:5900
+Restart=on-failure
+RestartSec=3
+# Ensures wayvnc only starts if a Wayland display is active
+ExecCondition=/usr/bin/env sh -c 'test -n "$WAYLAND_DISPLAY"'
+
+[Install]
+WantedBy=graphical-session.target

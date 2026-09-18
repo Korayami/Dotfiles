@@ -1,0 +1,15 @@
+[Unit]
+Description=Librespot Spotify Connect Client (CachyOS)
+After=network-online.target Sound.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# %h wird von systemd automatisch durch Ihr Home-Verzeichnis (/home/username) ersetzt
+ExecStart=/usr/bin/librespot -j --cache %h/.cache/librespot --name cachyos_pc --device-type computer -b 320 --volume-ctrl linear --enable-volume-normalisation --initial-volume 40
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+
