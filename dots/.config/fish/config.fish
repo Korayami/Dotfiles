@@ -11,3 +11,4 @@ starship init fish | source
 alias cat="bat"
 alias hx="helix"
 alias sync_configs="/usr/share/scripts/autoupdate/sync_configs.sh"
+alias force_shutdown="sudo poweroff -f"
