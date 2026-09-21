@@ -1,15 +1,15 @@
 #!/bin/bash
+# System Aktualisieren
+sudo pacman -Syu
 
+# Yay installieren
+sudo pacman -S yay
 
-# sudo pacman -Syu
-# sudo pacman -S yay
+# Mit yay Pakete installieren
+yay -S hyprland xdg-desktop-portal-hyprland-git
 
-# yay -S hyprland
-
-# curl -fsSL get.axeni.de/ambxst | sh
-
-# ambxst install hyprland
-
+# Ambxst Installieren
+curl -fsSL get.axeni.de/ambxst | sh
 
 # Quellordner und Zielordner definieren
 QUELL_ORDNER="/home/$USER/.Dotfiles/dots/.config"
@@ -18,18 +18,27 @@ ZIEL_ORDNER="/home/$USER/.config"
 # Stelle sicher, dass der Zielordner existiert
 mkdir -p "$ZIEL_ORDNER"
 
-# Iteration über alle Dateien im Quellordner
-for datei in "$QUELL_ORDNER"/*; do
-    # Prüfen, ob es sich wirklich um eine Datei handelt (und nicht um einen Ordner)
-    if [ -f "$datei" ]; then
-        # Dateiname ohne Pfad extrahieren
-        dateiname=$(basename "$datei")
-        # Alte Datei Backup
-        mv "$ZIEL_ORDNER/$dateiname" "$ZIEL_ORDNER/$dateiname.bak"
-        
-        # Symlink erstellen (-s für symlink, -f zum Überschreiben falls existiert)
-        ln -sf "$datei" "$ZIEL_ORDNER/$dateiname"
-        
-        echo "Symlink erstellt für: $dateiname"
+# Iteration über ALLE Einträge (Dateien UND Ordner)
+for pfad in "$QUELL_ORDNER"/*; do
+    # Prüfen, ob der Pfad überhaupt existiert (fängt leere Ordner ab)
+    if [ -e "$pfad" ]; then
+        eintrag_name=$(basename "$pfad")
+        ziel_pfad="$ZIEL_ORDNER/$eintrag_name"
+
+        # 1. Überspringen, wenn am Ziel bereits der korrekte Symlink liegt
+        if [ -L "$ziel_pfad" ]; then
+            echo "Übersprungen (Symlink existiert bereits): $eintrag_name"
+            continue
+        fi
+
+        # 2. Backup NUR erstellen, wenn am Ziel eine echtes Verzeichnis/Datei existiert
+        if [ -e "$ziel_pfad" ]; then
+            echo "Erstelle Backup für bestehende Konfiguration: $eintrag_name.bak"
+            mv "$ziel_pfad" "$ziel_pfad.bak"
+        fi
+
+        # 3. Symlink erstellen
+        ln -s "$pfad" "$ziel_pfad"
+        echo "Symlink erstellt für: $eintrag_name"
     fi
 done
