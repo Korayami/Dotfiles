@@ -2,8 +2,17 @@ import os
 import subprocess
 import datetime
 import time
+import argparse
+
+parser = argparse.ArgumentParser(description='ConfigSync V1')
+
+# parser.add_argument('--msg', action="store", dest='msg', default="0")
+parser.add_argument("-m", "--msg", type=str, default="", help="Custom Commit Message")
+args = parser.parse_args()
 
 cfg = {}
+
+print(args)
 
 with open("/usr/share/scripts/autoupdate/autoupd.config", "r") as f:
     lines = f.read().split("\n")
@@ -15,7 +24,10 @@ with open("/usr/share/scripts/autoupdate/autoupd.config", "r") as f:
 def update_changes():
     timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
     os.chdir(cfg.get("GIT_DIR"))
-    print(subprocess.run(["./sync.sh", timestamp],encoding='utf-8', stdout=subprocess.PIPE))
+    msg = ""
+    if args.msg != "" or args.msg != "0":
+        msg = args.msg
+    print(subprocess.run([f"./sync.sh", timestamp, msg],encoding='utf-8', stdout=subprocess.PIPE))
 
 def check_changes():
     timestamp = datetime.datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
