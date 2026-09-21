@@ -1,5 +1,5 @@
 #!/bin/bash
-msg="aus-c-$1"
+msg="aus-c-$1 $2"
 git stage .
 git commit -m "$msg"
 git push
