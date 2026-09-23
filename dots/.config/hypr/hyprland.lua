@@ -31,8 +31,8 @@ hl.monitor({ output = "", mode = "preferred", position = "auto", scale = 1 })
 hl.monitor({
     output   = "HDMI-A-3",
     mode     = "1920x1080@200.00Hz",
-    position = "1920x0",
-    scale    = "1",
+    position = "auto",
+    scale    = 1,
     vrr = 2
 })
 
