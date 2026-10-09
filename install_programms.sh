@@ -6,7 +6,7 @@ sudo pacman -Syu
 sudo pacman -S yay
 
 # Mit yay Pakete installieren
-yay -S hyprland xdg-desktop-portal-hyprland-git
+yay -S hyprland xdg-desktop-portal-hyprland-git bat helix wq
 
 # Ambxst Installieren
 curl -fsSL get.axeni.de/ambxst | sh

@@ -2278,6 +2278,24 @@
         }
       ],
       "name": "Move Column to Workspace 10"
+    },
+    {
+      "name": "Toggle Fullscreen",
+      "keys": [
+        {
+          "modifiers": [
+            "SUPER"
+          ],
+          "key": "F"
+        }
+      ],
+      "actions": [
+        {
+          "id": "window.fullscreen",
+          "args": {}
+        }
+      ],
+      "enabled": true
     }
   ],
   "defaultAmbxstBinds": {
