@@ -417,11 +417,4 @@ pcall(function() dofile(os.getenv("HOME") .. "/.cache/noctalia/HVE/overlay.lua")
 -- For Noctalia Color templates
 require("noctalia").apply_theme()
 
--- Custom Configs
-
--- Ambxst
-loadfile(os.getenv("HOME") .. "/.local/share/ambxst/hyprland.lua")()
-
--- OVERRIDES
--- Down here you can write or source anything that you want to override from Ambxst's settings.
 
